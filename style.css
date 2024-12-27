@@ -1,5 +1,6 @@
 body {
-    font-family: 'Arial', sans-serif;
+    background-image: url("bg.jpg");
+    font-family: 'Sniglet', cursive;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,12 +15,19 @@ body {
     align-items: center;
 }
 
+h1 {
+    font-size: 100px;
+    font-family: 'Londrina Outline', cursive;
+    margin: 20px 0;
+    color: #776e65;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: repeat(4, 100px);
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     background-color: #bbada0;
     padding: 10px;
     border-radius: 10px;
