@@ -214,6 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (squares[i].innerHTML == 2048) {
                 scoreDisplay.innerHTML = 'You win!';
                 document.removeEventListener('keyup', control);
+                document.removeEventListener('touchstart', handleTouchStart);
+                document.removeEventListener('touchmove', handleTouchMove);
+                document.removeEventListener('touchend', handleTouchEnd);
             }
         }
     }
@@ -229,6 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (zeros === 0) {
             scoreDisplay.innerHTML = 'You lose!';
             document.removeEventListener('keyup', control);
+            document.removeEventListener('touchstart', handleTouchStart);
+            document.removeEventListener('touchmove', handleTouchMove);
+            document.removeEventListener('touchend', handleTouchEnd);
         }
     }
 
@@ -240,7 +246,46 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay.innerHTML = score;
         createBoard();
         document.addEventListener('keyup', control);
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchmove', handleTouchMove);
+        document.addEventListener('touchend', handleTouchEnd);
     }
 
     resetButton.addEventListener('click', resetGame);
+
+    // Touch swipe functionality
+    let touchStartX, touchStartY, touchEndX, touchEndY;
+
+    function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }
+
+    function handleTouchMove(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+    }
+
+    function handleTouchEnd() {
+        let deltaX = touchEndX - touchStartX;
+        let deltaY = touchEndY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX > 0) {
+                keyRight();
+            } else {
+                keyLeft();
+            }
+        } else {
+            if (deltaY > 0) {
+                keyDown();
+            } else {
+                keyUp();
+            }
+        }
+    }
+
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
 });
